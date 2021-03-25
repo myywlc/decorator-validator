@@ -1,15 +1,11 @@
 {
+  "name": "decorator-validator",
+  "author": "jiangchengbiao",
   "version": "0.1.0",
-  "license": "MIT",
+  "module": "dist/decorator-validator.esm.js",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
-  "files": [
-    "dist",
-    "src"
-  ],
-  "engines": {
-    "node": ">=10"
-  },
+  "license": "MIT",
   "scripts": {
     "start": "tsdx watch",
     "build": "tsdx build",
@@ -21,30 +17,6 @@
     "analyze": "size-limit --why"
   },
   "peerDependencies": {},
-  "husky": {
-    "hooks": {
-      "pre-commit": "tsdx lint"
-    }
-  },
-  "prettier": {
-    "printWidth": 80,
-    "semi": true,
-    "singleQuote": true,
-    "trailingComma": "es5"
-  },
-  "name": "decorator-validator",
-  "author": "jiangchengbiao",
-  "module": "dist/mylib.esm.js",
-  "size-limit": [
-    {
-      "path": "dist/mylib.cjs.production.min.js",
-      "limit": "10 KB"
-    },
-    {
-      "path": "dist/mylib.esm.js",
-      "limit": "10 KB"
-    }
-  ],
   "devDependencies": {
     "@size-limit/preset-small-lib": "^4.10.1",
     "@types/validator": "^13.1.3",
@@ -56,5 +28,33 @@
   },
   "dependencies": {
     "validator": "^13.5.2"
-  }
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsdx lint"
+    }
+  },
+  "prettier": {
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "size-limit": [
+    {
+      "path": "dist/decorator-validator.cjs.production.min.js",
+      "limit": "10 KB"
+    },
+    {
+      "path": "dist/decorator-validator.esm.js",
+      "limit": "10 KB"
+    }
+  ]
 }
