@@ -1,7 +1,7 @@
 {
   "name": "decorator-validator",
   "author": "jiangchengbiao",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "module": "dist/decorator-validator.esm.js",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
