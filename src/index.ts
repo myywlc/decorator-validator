@@ -2,29 +2,20 @@ import { DarukContext } from 'daruk';
 
 export * as z from 'zod';
 
-class BaseError extends Error {
-  constructor(message: any) {
-    super(message);
-    this.message = message;
-  }
-}
-
-class ValidationError extends BaseError {
-  constructor(message: any, errors: any) {
-    super(message);
-    console.log(errors, 'errors');
-    this.name = 'ValidationError';
-  }
+type ErrDetail = {
+  code: string,
+  expected: string,
+  received: string,
+  path: [],
+  message: string,
 }
 
 type RefineParams = {
-  // override error message
-  message?: string;
-  // appended to error path
-  path?: (string | number)[];
-  // params object you can use to customize message
-  // in error map
-  params?: object;
+  success: boolean,
+  data?: object,
+  error?: {
+    errors: ErrDetail[],
+  },
 };
 
 type ValidatorConfig = {
@@ -35,17 +26,24 @@ export function validator(validatorConfig: ValidatorConfig): any {
   return (_target: Object, _propertyKey: string, descriptor: PropertyDescriptor) => {
     const { query, body, params } = validatorConfig;
     const validate = async (ctx: DarukContext) => {
-      const validateQuery: RefineParams = (query) ? (await query.parse(ctx.query)) : true;
-      const validateBody: RefineParams = (body) ? (await body.parse(ctx.request.body)) : true;
-      const validateParams: RefineParams = (params) ? (await params.parse(ctx.params)) : true;
-      if (validateQuery && validateBody && validateParams) {
+      const ERR_INFO: string[] = [];
+      if (params) {
+        const validateParams: RefineParams = await params.safeParse(ctx.params);
+        if (!validateParams.success) ERR_INFO.push(`params data validator error: ${validateParams.error?.errors.reduce((accumulator, item) => accumulator + `, ${item.path.join('-')} (${item.message})`, '')}`);
+      }
 
-      } else {
-        throw new ValidationError('Validate Error', {
-          validateQuery,
-          validateBody,
-          validateParams,
-        });
+      if (query) {
+        const validateQuery: RefineParams = await query.safeParse(ctx.query);
+        if (!validateQuery.success) ERR_INFO.push(`query data validator error: ${validateQuery.error?.errors.reduce((accumulator, item) => accumulator + `, ${item.path.join('-')} (${item.message})`, '')}`);
+      }
+
+      if (body) {
+        const validateBody: RefineParams = await body.safeParse(ctx.request.body);
+        if (!validateBody.success) ERR_INFO.push(`body data validator error: ${validateBody.error?.errors.reduce((accumulator, item) => accumulator + `, ${item.path.join('-')} (${item.message})`, '')}`);
+      }
+
+      if (ERR_INFO.length > 0) {
+        throw new Error(ERR_INFO.join('; '));
       }
     };
 
