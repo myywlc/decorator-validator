@@ -41,7 +41,7 @@ export function validator(validatorConfig: ValidatorConfig): any {
       if (validateQuery && validateBody && validateParams) {
 
       } else {
-        throw new ValidationError('User Input Validate Error', {
+        throw new ValidationError('Validate Error', {
           validateQuery,
           validateBody,
           validateParams,
