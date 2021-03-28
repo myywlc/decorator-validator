@@ -1,15 +1,46 @@
-import { controller, DarukContext, DarukServer, get, Next } from 'daruk';
+import {Daruk, controller, DarukContext, DarukServer, post, Next, defineMiddleware, MiddlewareClass } from 'daruk';
+import { validator, z } from '../../src/index'
+
+@defineMiddleware('globalErrorCapture')
+class GlobalErrorCapture implements MiddlewareClass {
+  public initMiddleware(daruk: Daruk) {
+    return async (ctx: DarukContext, next: Next) => {
+      try {
+        await next();
+      } catch (err) {
+        ctx.body = {
+          success: false,
+          msg: err.message,
+        };
+      }
+    };
+  }
+}
+
 
 @controller()
 class HelloWorld {
-  @get('/')
+  @validator({
+    query: z.object({
+      a: z.string(),
+    }),
+    body: z.object({
+      b: z.number(),
+    }),
+    params: z.object({
+      id: z.string(),
+    }),
+  })
+  @post('/index/:id')
   public async index(ctx: DarukContext, next: Next) {
     ctx.body = 'hello world';
   }
 }
 
 (async () => {
-  let app = DarukServer();
+  let app = DarukServer({
+    middlewareOrder: ['globalErrorCapture'],
+  });
   let port = 3000;
   await app.binding();
   app.listen(port);
