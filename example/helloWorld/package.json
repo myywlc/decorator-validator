@@ -1,0 +1,25 @@
+{
+  "name": "micro-app-server",
+  "version": "1.0.1",
+  "description": "microAppServer",
+  "main": "index.js",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=dev nodemon --watch ./ --exec ts-node --project tsconfig.json --files index.ts -e ts,js,json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@git.aipp.io:frontend/BFF/microAppServer.git"
+  },
+  "keywords": [],
+  "author": "KYO",
+  "license": "ISC",
+  "dependencies": {
+    "daruk": "^2.3.1"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.2",
+    "nodemon": "^2.0.6",
+    "ts-node": "^9.0.0",
+    "typescript": "^4.0.5"
+  }
+}
