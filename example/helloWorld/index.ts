@@ -33,6 +33,9 @@ class HelloWorld {
   })
   @post('/index/:id')
   public async index(ctx: DarukContext, next: Next) {
+    console.log(ctx.query, 'ctx.query');
+    console.log(ctx.request.body, 'ctx.request.body');
+    console.log(ctx.params, 'ctx.params');
     ctx.body = 'hello world';
   }
 }

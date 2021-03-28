@@ -1,40 +1,24 @@
-import { DarukContext, Next } from 'daruk';
+import { DarukContext } from 'daruk';
 
 export * as z from 'zod';
-
-const errorCode = {
-  VALIDATION: {
-    CODE: 'VALIDATION',
-    STATUS: 400,
-  },
-};
 
 class BaseError extends Error {
   constructor(message: any) {
     super(message);
-    this.name = this.constructor.name;
     this.message = message;
   }
 }
 
 class ValidationError extends BaseError {
-  private status: number;
-  private code: string;
-  private data: any;
-  private errors: any;
-  constructor(message: any, errors: any, data?: any, code = errorCode.VALIDATION.CODE) {
+  constructor(message: any, errors: any) {
     super(message);
     console.log(errors, 'errors');
     this.name = 'ValidationError';
-    this.status = 400;
-    this.code = code;
-    this.data = data;
-    this.errors = errors;
   }
 }
 
 export function validator(validatorConfig: any): any {
-  return (target: Object, propertyKey: string, descriptor: PropertyDescriptor) => {
+  return (_target: Object, _propertyKey: string, descriptor: PropertyDescriptor) => {
     const { query, body, params } = validatorConfig;
     const validate = async (ctx: DarukContext) => {
       const validateQuery = (query) ? (await query.parse(ctx.query)) : true;
@@ -51,7 +35,7 @@ export function validator(validatorConfig: any): any {
       }
     };
     let oldDescriptor = descriptor.value;
-    descriptor.value = async function (...args) {
+    descriptor.value = async function (...args: DarukContext[]) {
       await validate(args[0]);
       await oldDescriptor(...args);
     };
