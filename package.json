@@ -1,11 +1,10 @@
 {
   "name": "decorator-validator",
-  "author": "myywlc",
-  "version": "1.1.2",
+  "author": "myywlc <myywlc@163.com>",
+  "version": "1.1.3",
   "module": "dist/decorator-validator.esm.js",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
-  "homepage": "https://github.com/myywlc/decorator-validator",
   "license": "MIT",
   "scripts": {
     "start": "tsdx watch",
@@ -31,6 +30,40 @@
   "dependencies": {
     "zod": "^1.11.13"
   },
+  "homepage": "https://github.com/myywlc/decorator-validator",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/myywlc/decorator-validator"
+  },
+  "bugs": {
+    "url": "https://github.com/myywlc/decorator-validator/issues"
+  },
+  "tags": [
+    "typescript",
+    "schema",
+    "validation",
+    "type",
+    "inference",
+    "schema-validation",
+    "decorator",
+    "validator",
+    "koa",
+    "daruk",
+    "lin"
+  ],
+  "keywords": [
+    "typescript",
+    "schema",
+    "validation",
+    "type",
+    "inference",
+    "schema-validation",
+    "decorator",
+    "validator",
+    "koa",
+    "daruk",
+    "lin"
+  ],
   "files": [
     "dist",
     "src"
