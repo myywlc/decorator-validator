@@ -1,10 +1,11 @@
 {
   "name": "decorator-validator",
-  "author": "jiangchengbiao",
-  "version": "1.1.1",
+  "author": "myywlc",
+  "version": "1.1.2",
   "module": "dist/decorator-validator.esm.js",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
+  "homepage": "https://github.com/myywlc/decorator-validator",
   "license": "MIT",
   "scripts": {
     "start": "tsdx watch",

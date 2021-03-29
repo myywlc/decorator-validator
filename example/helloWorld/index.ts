@@ -1,4 +1,4 @@
-import {Daruk, controller, DarukContext, DarukServer, post, Next, defineMiddleware, MiddlewareClass } from 'daruk';
+import { Daruk, controller, DarukContext, DarukServer, post, Next, defineMiddleware, MiddlewareClass } from 'daruk';
 import { validator, z } from '../../src/index'
 
 @defineMiddleware('globalErrorCapture')
