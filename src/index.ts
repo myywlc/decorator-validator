@@ -1,7 +1,6 @@
 import { DarukContext } from 'daruk';
-import zod from 'zod';
 
-export const z = zod;
+export * as z from 'zod';
 
 type ErrDetail = {
   code: string,
@@ -55,9 +54,4 @@ export function validator(validatorConfig: ValidatorConfig): any {
     };
     return descriptor;
   };
-}
-
-export default {
-  validator,
-  z,
 }

@@ -1,7 +1,7 @@
 {
   "name": "decorator-validator",
   "author": "myywlc <myywlc@163.com>",
-  "version": "1.2.0",
+  "version": "1.2.2",
   "module": "dist/decorator-validator.esm.js",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
