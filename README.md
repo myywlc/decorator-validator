@@ -29,6 +29,7 @@ class HelloWorld {
   @validator({
     query: z.object({
       a: z.string(),
+      c: z.string().regex(/^\d+$/, { message: "is not num" }),
     }),
     body: z.object({
       b: z.number(),
